@@ -54,7 +54,7 @@ function SignupForm() {
           <Box ml={{sm:"0",lg:"60"}}>
           
             <Text w={461} c={"#D5EDFF"} fw={900} fz={64} mt={126}>
-              Simplifying the crypto markets
+              SIMPLIFYING THE CRYPTO MARKETS
             </Text>
           </Box>
           <Image h={{sm:"500px",lg:"789px"}} w={{sm:"500px",lg:"789px"}} src={"/images/SignupLeft.png"} />
@@ -72,7 +72,7 @@ function SignupForm() {
           
         >
           <Text c={"#D5EDFF"} fz={36} fw={900}>
-            Signup
+            SIGNUP
           </Text>
           <form
             style={{

@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'ClashDisplay'; /* Replace with your font name */
+    src: url('../../app/fonts/ClashDisplay-Variable.ttf') format('ttf'); /* Add other formats as needed */
+     /* Optionally specify weight and style */
+    font-style: normal;
+  }
+  
+  /* Add rules for other weights or styles */
+  

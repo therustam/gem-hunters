@@ -2,6 +2,7 @@ import "@mantine/core/styles.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
+import '../public/fonts/ClashDisplay-Variable.css';
 
 export const metadata = {
   title: "Mantine Next.js template",
@@ -20,7 +21,11 @@ export default function RootLayout({ children }: { children: any }) {
         />
       </head>
       <body>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={
+          {
+            fontFamily: 'ClashDisplay, sans-serif', // Set your font name with a fallback
+          }
+        }>{children}</MantineProvider>
       </body>
     </html>
   );
