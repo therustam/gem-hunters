@@ -1,0 +1,19 @@
+.textInput {
+    color: #D5EDFF;
+    border-bottom:1px solid #D5EDFF ;
+    font-size: 18px;
+    margin-top: 30px;
+    &::placeholder {
+      color: #D5EDFF;
+    }
+  }
+  
+  .flex {
+    border-radius: 22px;
+    border: 1px solid rgba(185, 244, 253, 0.22);
+    background: linear-gradient(142deg, #08172A 17.99%, #040D1B 76.11%);
+    backdrop-filter: blur(13.1px);
+    padding: 20px;
+    text-align: center;
+  }
+  
