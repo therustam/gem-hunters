@@ -139,7 +139,7 @@ function SignupForm() {
               type="submit"
               mt="xl"
               w={470}
-              onClick={toggle}
+              // onClick={toggle}
             >
              Next Step
             </Button>

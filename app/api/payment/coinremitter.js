@@ -1,4 +1,5 @@
 export async function createPaymentRequest() {
+    console.log("I am in api")
     // const API_URL = 'https://coinremitter.com/api/v3/BTC/invoice'; // Replace [currency] with the desired currency code
     // const API_KEY = '$2y$10$Q8P7AB/s9tNNxbRhis/BPeA85PzlJyTVTSVcCAZjjPzRq8iEucvmW';
     // const PASSWORD = 'gemhunters2024';
