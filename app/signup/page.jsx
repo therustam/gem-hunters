@@ -3,6 +3,7 @@ import classes from './InputText.module.css';
 import { useToggle } from '@mantine/hooks';
 import { useForm } from "@mantine/form";
 import Step2 from "./Step2"
+import {createPaymentRequest} from "../api/payment/coinremitter"
 import {
   TextInput,
   Button,
@@ -22,8 +23,37 @@ function SignupForm() {
     },
   });
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     console.log("Submitted values:", values);
+    try {
+      const response = await createPaymentRequest(); // Make the payment request
+      console.log("🚀 ~ handleSubmit ~ response:", response);
+      // If the payment request is successful, move to step 2
+      setValue(true);
+    } catch (error) {
+      console.error('Error during payment request:', error);
+      // Handle payment request errors
+    }
+    // try {
+    //   const response = await fetch('/api/users', { // Replace with your actual API endpoint
+    //     method: 'POST',
+    //     body: JSON.stringify(values),
+    //     headers: { 'Content-Type': 'application/json' },
+    //   });
+    //   console.log("🚀 ~ handleSubmit ~ response:", response)
+  
+    //   const data = await response.json();
+  
+    //   if (data.message === 'User created successfully!') {
+    //     setValue(true); // Move to step 2
+    //   } else {
+    //     console.error('Error creating user:', data.message);
+    //     // Handle signup errors (e.g., display error message to user)
+    //   }
+    // } catch (error) {
+    //   console.error('Error during signup:', error);
+    //   // Handle API call errors
+    // }
   };
   const [value, toggle] = useToggle([false,true]);
   return (
