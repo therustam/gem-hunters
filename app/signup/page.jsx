@@ -1,9 +1,9 @@
 "use client";
 import classes from './InputText.module.css';
-import { useToggle } from '@mantine/hooks';
 import { useForm } from "@mantine/form";
+import { IconX, IconCheck } from '@tabler/icons-react'
+import { Loader,Notification,rem } from '@mantine/core';
 import Step2 from "./Step2"
-import {createPaymentRequest} from "../api/payment/coinremitter"
 import {
   TextInput,
   Button,
@@ -14,48 +14,56 @@ import {
   Image,
 } from "@mantine/core";
 import Link from 'next/link';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 function SignupForm() {
+  
+  const [value, setValue] = useState(false);
+  const [loading,setLoading] = useState(false);
+  const router =useRouter()
   const form = useForm({
     initialValues: {
       full_name: "",
       email: "",
       telegram: "",
     },
+    validate: {
+      full_name: (value) => (value.trim() ? null : 'Full name is required'),
+      email: (value) => (/^\S+@\S+\.\S+$/.test(value) ? null : 'Invalid email format'),
+      telegram: (value) => (value.trim() ? null : 'Telegram is required'),
+    },
   });
-
   const handleSubmit = async (values) => {
-    console.log("Submitted values:", values);
-    try {
-      const response = await createPaymentRequest(); // Make the payment request
-      console.log("🚀 ~ handleSubmit ~ response:", response);
-      // If the payment request is successful, move to step 2
-      setValue(true);
-    } catch (error) {
-      console.error('Error during payment request:', error);
-      // Handle payment request errors
+    if (form.validate().hasErrors) {
+      return; 
     }
-    // try {
-    //   const response = await fetch('/api/users', { // Replace with your actual API endpoint
-    //     method: 'POST',
-    //     body: JSON.stringify(values),
-    //     headers: { 'Content-Type': 'application/json' },
-    //   });
-    //   console.log("🚀 ~ handleSubmit ~ response:", response)
-  
-    //   const data = await response.json();
-  
-    //   if (data.message === 'User created successfully!') {
-    //     setValue(true); // Move to step 2
-    //   } else {
-    //     console.error('Error creating user:', data.message);
-    //     // Handle signup errors (e.g., display error message to user)
-    //   }
-    // } catch (error) {
-    //   console.error('Error during signup:', error);
-    //   // Handle API call errors
-    // }
+    console.log("🚀 ~ handleSubmit ~ values:", values)
+    setLoading(true)
+    const response = await fetch('/api/payment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      // body: JSON.stringify({ data: inputValue }),
+    });
+
+    const data = await response.json();
+    console.log(data); // handle response
+    if (data.data) {
+      setLoading(false)
+      router.push(`${data.data.url}`)
+      return(
+        <Notification icon={IconCheck} color="teal" title="All good!" mt="md">
+        Everything is fine
+      </Notification>
+      )
+    }else{
+
+    return(  <Notification icon={IconX} color="red" title="Bummer!">
+      Something went wrong
+    </Notification>)
+    }
   };
-  const [value, toggle] = useToggle([false,true]);
   return (
     <>
     {
@@ -109,6 +117,7 @@ function SignupForm() {
               width: "470px",
             }}
             onSubmit={form.onSubmit(handleSubmit)}
+            // action={signup}
           >
             <TextInput
             classNames={{ input: classes.textInput }}
@@ -139,9 +148,12 @@ function SignupForm() {
               type="submit"
               mt="xl"
               w={470}
-              // onClick={toggle}
             >
-             Next Step
+            {
+              loading ? <Loader color="#fff" type="dots" />
+              : " Next Step"
+            } 
+            
             </Button>
           </form>
         </Flex>
