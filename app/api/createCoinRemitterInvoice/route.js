@@ -11,12 +11,12 @@ export async function POST(req, res ) {
         // const API_KEY = "$2y$10$DIVAbCj6mLpY2TviOPVD2eovRxguIXc3V1fVndSo5gN46afKMDxni";
       
 
-       const response = await fetch("https://coinremitter.com/api/v3/BTC/create-invoice", {
+       const response = await fetch("https://coinremitter.com/api/v3/TCN/create-invoice", {
            method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-              api_key:"$2y$10$Q8P7AB/s9tNNxbRhis/BPeA85PzlJyTVTSVcCAZjjPzRq8iEucvmW",
-              password: "gemhunters2024",
+              api_key:"$2y$10$DIVAbCj6mLpY2TviOPVD2eovRxguIXc3V1fVndSo5gN46afKMDxni",
+              password: "devDigital",
                amount: "1",
             //    success_url:`${process.env.DOMAIN_URL}/paymentsuccess`
               // currency: "EUR",
