@@ -2,7 +2,9 @@ import "@mantine/core/styles.css";
 import React from "react";
 import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
-import '../public/fonts/ClashDisplay-Variable.css';
+import '@mantine/notifications/styles.css';
+// import '../public/fonts/ClashDisplay-Variable.css';
+import { Notifications } from '@mantine/notifications';
 
 export const metadata = {
   title: "Mantine Next.js template",
@@ -23,9 +25,19 @@ export default function RootLayout({ children }: { children: any }) {
       <body>
         <MantineProvider theme={
           {
-            fontFamily: 'ClashDisplay, sans-serif', // Set your font name with a fallback
+            fontFamily: 'fatfrank, sans-serif',
+            breakpoints: {
+              xs: '30em',
+              sm: '48em',
+              md: '64em',
+              lg: '84em',
+              xl: '91em',
+              
+            },
           }
-        }>{children}</MantineProvider>
+        }>
+          <Notifications position="top-right" zIndex={1000} />
+          {children}</MantineProvider>
       </body>
     </html>
   );

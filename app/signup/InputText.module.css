@@ -1,19 +1,31 @@
 .textInput {
+  color: #D5EDFF;
+  border-bottom:1px solid #D5EDFF ;
+  font-size: 18px;
+  margin-top: 30px;
+  &::placeholder {
     color: #D5EDFF;
-    border-bottom:1px solid #D5EDFF ;
-    font-size: 18px;
-    margin-top: 30px;
-    &::placeholder {
-      color: #D5EDFF;
-    }
   }
-  
-  .flex {
-    border-radius: 22px;
-    border: 1px solid rgba(185, 244, 253, 0.22);
-    background: linear-gradient(142deg, #08172A 17.99%, #040D1B 76.11%);
-    backdrop-filter: blur(13.1px);
-    padding: 20px;
-    text-align: center;
-  }
-  
+}
+
+.flex {
+  border-radius: 22px;
+  border: 1px solid rgba(185, 244, 253, 0.22);
+  background: linear-gradient(142deg, #08172A 17.99%, #040D1B 76.11%);
+  backdrop-filter: blur(13.1px);
+  padding: 20px;
+  text-align: center;
+  height: 100vh !important;
+}
+/* Add this class in your CSS file */
+.myButton {
+background-image: linear-gradient(93deg, #9BDDFD -34.54%, #449BF1 110.95%);
+font-size: 24px;
+transition: background-image 1.4s ease-in-out !important;
+}
+
+.myButton:hover {
+/* background-image: linear-gradient(to right, #449BF1, #9BDDFD); Change to desired hover colors */
+/* transform: translateY(5%); */
+background-image: linear-gradient(93deg, #449BF1 -34.54%, #9BDDFD 110.95%);
+}
