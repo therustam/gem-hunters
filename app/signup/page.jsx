@@ -167,10 +167,11 @@ function SignupForm() {
                  mr={{ sm: "0", lg: 80 }}
                  >
                   <Text
-                    w={isMobile ? 350 : 461}
+                  // bg={"blue"}
+                    w={isMobile ? 350 : 691}
                     c={"#D5EDFF"}
                     fw={900}
-                    mr={isMobile?0:40}
+                    mr={isMobile?0:-60}
                     fz={isMobile ? 30 : 64}
                     mt={isMobile?60:126}
                     mb={isMobile?30:0}
@@ -200,7 +201,7 @@ function SignupForm() {
                 className={classes.flex}
               >
                 <Text c={"#D5EDFF"} fz={36} fw={900}>
-                  SIGNUP
+                  SIGN UP
                 </Text>
                 <form onSubmit={form.onSubmit(handleSubmit)}>
                   <TextInput
@@ -236,6 +237,9 @@ function SignupForm() {
                     )}
       
                   </Button>
+                  <Text c={"#D5EDFF"} fz={14} mt={27}>
+                    Step 1 of 2
+                  </Text>
                 </form>
               </Flex>
             </Flex>
