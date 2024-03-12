@@ -4,6 +4,7 @@ import { useToggle } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { IconX, IconCheck, IconCross } from "@tabler/icons-react";
 import { Loader, Notification, rem } from "@mantine/core";
+import useSWR from "swr";
 import Step2 from "./Step2";
 import {
   TextInput,
@@ -18,14 +19,14 @@ import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@mantine/hooks";
-import { Notifications, notifications } from "@mantine/notifications";
+import { notifications } from "@mantine/notifications";
+
 function SignupForm() {
-  const [value, setValue] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width: 1120px)");
-  const isMobileHeight = useMediaQuery('(max-height: 788px)')
-    console.log("🚀 ~ SignupForm ~ isMobile:", isMobileHeight);
+  const isMobileHeight = useMediaQuery('(max-height: 800px)')
+    // console.log("🚀 ~ SignupForm ~ isMobile:", isMobileHeight);
   const form = useForm({
     initialValues: {
       full_name: "",
@@ -60,9 +61,7 @@ function SignupForm() {
     })
    
     const userExist = await gerUserResponse.json();
-    console.log("🚀 ~ handleSubmit ~ userExist:", userExist)
-    
-
+    // console.log("🚀 ~ handleSubmit ~ userExist:", userExist)
     if (userExist.message == 'User exist') {
       notifications.update({
        
@@ -86,7 +85,7 @@ function SignupForm() {
   
       const data = await response.json();
       // console.log("🚀 ~ handleSubmit ~ data:", data.data.merchant_id)
-      console.log(data); // handle response
+      console.log(data); 
       if (data.data.merchant_id) {
         setLoading(false);
         let paymentStatus= false;
@@ -140,17 +139,14 @@ function SignupForm() {
           // w={{xl:'91em'}}
 
           >            
-          <Link href={"/"}>
-              <Box pt={isMobile?10:60}>
-                <Image h={29} w={173} ml={isMobile?10:60} src={"/images/logo.png"} />
-              </Box>
-            </Link>
+          
             <Flex
               justify="center"
               align="center"
               direction={`${isMobile ? "column" : "row"}`}
               wrap="wrap"
             >
+              
               <Flex
                 w={`${isMobile ? "100%" : "50%"}`}
                 ml={0}
@@ -163,17 +159,29 @@ function SignupForm() {
                   zIndex: "20",
                 }}
               >
+                <Link href={"/"}>
+              <Box 
+              // pt={isMobile?10:0}
+              mt={isMobile?10:120}
+              >
+
+                <Image h={29} w={173} ml={isMobile?0:0} mr={isMobile?190:isMobileHeight ? 285 :400} src={"/images/logo.png"} />
+              </Box>
+            </Link>
                 <Box
                  mr={{ sm: "0", lg: 80 }}
                  >
                   <Text
                   // bg={"blue"}
-                    w={isMobile ? 350 : 691}
+                  style={{
+                    // fontFamily:'fatfrank',
+                  }}
+                    w={isMobile ? 350 :isMobileHeight? 391:691}
                     c={"#D5EDFF"}
                     fw={900}
-                    mr={isMobile?0:-60}
-                    fz={isMobile ? 30 : 64}
-                    mt={isMobile?60:126}
+                    mr={isMobile?0:isMobileHeight? -20 :-200}
+                    fz={isMobile ? 30 :isMobileHeight? 40: 52}
+                    mt={isMobile?60:66}
                     mb={isMobile?30:0}
                     // ml={200}
                   >
@@ -182,17 +190,16 @@ function SignupForm() {
                 </Box>
           
                 <Image
-                mr={isMobile? 0:-80}
+                mr={isMobile? 0:isMobileHeight? -50 : -60}
                   h={isMobile ? 400 : "auto"}
-                  w={isMobile ? 400 : isMobileHeight? "50%":"60%"}
+                  w={isMobile ? 400 : isMobileHeight? "67%":"67%"}
                   src={"/images/SignupLeft.png"}
                 />
         
               </Flex>
-
               <Flex
                 w={`${isMobile ? "100%" : "50%"}`}
-                mt={isMobile ? 50 : isMobileHeight ? -120:-90}
+                mt={isMobile ? 50 : isMobileHeight ? 0:0}
                 h={isMobile? "500px":"100vh"}
                 direction={"column"}
                 gap={"10px"}
@@ -200,11 +207,13 @@ function SignupForm() {
                 justify={"center"}
                 className={classes.flex}
               >
-                <Text c={"#D5EDFF"} fz={36} fw={900}>
-                  SIGN UP
+                <Text  c={"#D5EDFF"} fz={36} fw={900}>
+                Join Gem Hunters Now
                 </Text>
+                <Text c={"#D5EDFF"} fz={16}>Trusted by industry leaders since 2017</Text>
                 <form onSubmit={form.onSubmit(handleSubmit)}>
                   <TextInput
+                  ff={"heading"}
                     classNames={{ input: classes.textInput }}
                     variant="unstyled"
                     placeholder="Full Name"
@@ -223,17 +232,19 @@ function SignupForm() {
                     {...form.getInputProps("telegram")}
                   />
                   <Button
-                  
                     className={classes.myButton}
                     type="submit"
                     mt="xl"
                     w={isMobile? 350:470}
-                    fw={"lighter"}
+                    h={40}
+                    fw={""}
+                    ta={"center"}
+                    
                   >
                     {loading ? (
                       <Loader color="#fff" type="dots" />
                     ) : (
-                      " Next Step"
+                      " Go To Checkout"
                     )}
       
                   </Button>

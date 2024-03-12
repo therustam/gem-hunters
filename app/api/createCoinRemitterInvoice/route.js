@@ -18,7 +18,7 @@ export async function POST(req, res ) {
               api_key:"$2y$10$DIVAbCj6mLpY2TviOPVD2eovRxguIXc3V1fVndSo5gN46afKMDxni",
               password: "devDigital",
                amount: "1",
-            //    success_url:`${process.env.DOMAIN_URL}/paymentsuccess`
+            //    success_url:`http://localhost:3000/api/paymentsuccess`
               // currency: "EUR",
                
          }),
