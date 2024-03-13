@@ -5,7 +5,26 @@ import { theme } from "../theme";
 import '@mantine/notifications/styles.css';
 // import '../public/fonts/ClashDisplay-Variable.css';
 import { Notifications } from '@mantine/notifications';
+import localFont from "next/font/local";
 
+const myFont = localFont({
+  src: [
+    {
+      path: "./fonts/fatfrank-webfont.ttf",
+      
+    },
+   
+  ],
+  display: "swap",
+});
+const CashDisplay = localFont({
+  src:[
+    {
+      path:"./fonts/ClashDisplay-Variable.ttf"
+    }
+  ],
+  display:"swap"
+})
 export const metadata = {
   title: "Mantine Next.js template",
   description: "I am using Mantine with Next.js!",
@@ -22,10 +41,11 @@ export default function RootLayout({ children }: { children: any }) {
           content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
         />
       </head>
-      <body>
+      <body className={CashDisplay.className}>
         <MantineProvider theme={
           {
-            fontFamily: 'fatfrank, sans-serif',
+            fontFamily: `${myFont}`,
+            // headings: { fontFamily: `${myFont}` },
             breakpoints: {
               xs: '30em',
               sm: '48em',
