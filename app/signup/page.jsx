@@ -151,14 +151,17 @@ function SignupForm() {
                 w={`${isMobile ? "100%" : "50%"}`}
                 ml={0}
                 mt={isMobile ? 30 : -60}
-                // bg={"cyan"}
                 justify={isMobile? "center":"end"}
                 align={isMobile?"center":"end"}
                 direction={"column"}
                 style={{
                   zIndex: "20",
                 }}
+                h={"100vh"}
               >
+                <Box h={"40%"}
+                 mr={isMobile? 0:-30}
+                >
                 <Link href={"/"}>
               <Box 
               // pt={isMobile?10:0}
@@ -167,15 +170,11 @@ function SignupForm() {
 
                 <Image h={29} w={173} ml={isMobile?0:0} mr={isMobile?190:isMobileHeight ? 285 :400} src={"/images/logo.png"} />
               </Box>
-            </Link>
+                </Link>
                 <Box
                  mr={{ sm: "0", lg: 80 }}
                  >
                   <Text
-                  // bg={"blue"}
-                  style={{
-                    // fontFamily:'fatfrank',
-                  }}
                     w={isMobile ? 350 :isMobileHeight? 391:691}
                     c={"#D5EDFF"}
                     fw={900}
@@ -183,19 +182,20 @@ function SignupForm() {
                     fz={isMobile ? 30 :isMobileHeight? 40: 52}
                     mt={isMobile?60:66}
                     mb={isMobile?30:0}
-                    // ml={200}
                   >
                     SIMPLIFYING THE CRYPTO MARKETS
                   </Text>
-                </Box>
-          
+                 </Box>
+                 </Box>
+                 <Box h={"60%"}
+                  mr={isMobile? 0:isMobileHeight ? -60:-70}
+                  >
                 <Image
-                mr={isMobile? 0:isMobileHeight? -50 : -60}
-                  h={isMobile ? 400 : "auto"}
-                  w={isMobile ? 400 : isMobileHeight? "67%":"67%"}
+                  h={isMobile ? 400 :"100%"}
+                  w={isMobile ? 400 :"100%"}
                   src={"/images/SignupLeft.png"}
                 />
-        
+        </Box>
               </Flex>
               <Flex
                 w={`${isMobile ? "100%" : "50%"}`}
@@ -236,7 +236,7 @@ function SignupForm() {
                     type="submit"
                     mt="xl"
                     w={isMobile? 350:470}
-                    h={40}
+                    h={52}
                     fw={""}
                     ta={"center"}
                     
@@ -244,7 +244,9 @@ function SignupForm() {
                     {loading ? (
                       <Loader color="#fff" type="dots" />
                     ) : (
-                      " Go To Checkout"
+                      <>
+                       Go To Checkout<Image h={28} w={28} src={"/images/hammer.webp"} />
+                      </>
                     )}
       
                   </Button>
