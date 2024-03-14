@@ -24,13 +24,15 @@
   text-align: center;
   height: 100vh !important;
 }
-/* Add this class in your CSS file */
+
 .myButton {
   backdrop-filter: blur(12px);
   color: #b9f4fd;
    background-color: rgba(0, 0, 0, 0);
-   background-image: linear-gradient(147deg, rgba(185, 244, 253, .15), rgba(155, 221, 253, .15));
-  border: 2px solid #b9f4fd;
+
+   /* background-image: linear-gradient(147deg, rgba(185, 244, 253, .15), rgba(155, 221, 253, .15)); */
+   background-image: none !important;
+   border: 2px solid #b9f4fd;
   border-radius: 6px;
   text-align: center !important;
   align-items: center !important;
@@ -42,5 +44,8 @@
 }
 
 .myButton:hover{
-  background-image: none;
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+  background-image: linear-gradient(147deg, rgba(185, 244, 253, .15), rgba(155, 221, 253, .15)) !important;
+
 }
