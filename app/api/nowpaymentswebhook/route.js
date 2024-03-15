@@ -1,52 +1,69 @@
-import { NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import { Pool } from 'pg';
-import crypto from 'crypto';
-
-// Your IPN Secret Key from NowPayments
 
 const pool = new Pool({
-  connectionString: "postgres://default:3yv0cjtmhRZk@ep-jolly-lake-a4xkkfdk-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require",
-  // Add SSL configuration if required for your database
+  connectionString: process.env.POSTGRES_URL,
 });
+    
+export async function POST(req, res){
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method Not Allowed' });
+  }
 
-// export const config = {
-  //   api: {
-    //     bodyParser: false, // Disable body parsing for NowPayments webhook
-    //   },
-    // };
+  const body = await req.json();
+  const paymentId = body.order_id;
+  const status = body.payment_status;
+  if (status == `finished`) {
+    const updateQuery = {
+      text: `UPDATE users SET paymentStatus = true WHERE order_id = $1;`,
+      values: [paymentId]
+    };
+    await pool.query(updateQuery);
+    const selectQuery = {
+      text: `SELECT * FROM users WHERE order_id = $1;`,
+      values: [paymentId]
+    };
+  
+    const result = await pool.query(selectQuery);
     
-    
-export async function POST(request, response){
+    if (result.rows.length > 0) {
+      const userData =await result.rows[0]; 
+      console.log("userData->",userData)
+      const nameParts = userData.full_name.split(" ");
+      const firstName = nameParts[0];
+      const lastName = nameParts[1];
+      
+      // sending POST Request to abandon cart
+     sendPostRequest('https://hook.us1.make.com/k965pa9fucx98txicvw3o9b1dbb272s5', {
+        first_name: firstName,
+        last_name: lastName,
+        email: userData.email,
+        telegram:userData.telegram,
+        order_id: userData?.order_id, 
+        cta_btn:`https://gem-hunters-puce.vercel.app?name=${userData.full_name}&email=${userData.email}&telegram=${userData.telegram}`
+      });
+    } 
+
+  return NextResponse.json({ message: "User Payment Status has been set to true" },{status:200});
+
+  }
+  return NextResponse.json({ message: "Payment recieved successfully" },{status:200});
+}
+
+async function sendPostRequest(url, data) {
   try {
-    if (req.method !== 'POST') {
-      return res.status(405).json({ message: 'Method Not Allowed' });
-    }
-        
-    const IPN_SECRET = 'xtXcZD3BxSpF7HjnLjsfMrOvPJtJFKeY';
+    
+    console.log(data.cta_btn)
+    const req=await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
 
-    const receivedHmac = request.headers.get('x-nowpayments-sig');
-    const requestBody = JSON.stringify(request.body);
-    const hmac = crypto.createHmac('sha512', IPN_SECRET);
-    hmac.update(requestBody);
-    const signature = hmac.digest('hex');
+    
+    console.log(req.status===200?"Successfull Payment POST Request sent to make.com for the following user":"Successfull Payment Request wasn't able to sent to make.com")
 
-      if (signature === receivedHmac) {
-      // Signature matches, process the notification
-      // Convert body to JSON and process further according to your logic
-      const data = JSON.parse(request.body);
-      console.log("Valid IPN received", data);
-
-        // Here, you can update the payment status in your database
-        // For example, set paymentStatus to true for the user/order
-
-        // return new NextResponse(JSON.stringify({ message: 'IPN Processed Successfully' }), {status: 200});
-        return res.status(200).json({ message: 'IPN Processed Successfully' });
-      } else {
-        console.error('Invalid IPN signature');
-        return res.status(400).json({ error: 'Invalid signature' });
-      }
-    } catch (error) {
-      console.error('Error processing IPN:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
+  } catch (error) {
+    console.error('Error sending POST request:', error);
+  }
 }

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seed": "node -r dotenv/config ./scripts/seed.js"
+    "ngrok": "ngrok http 3000"
   },
   "dependencies": {
     "@mantine/core": "7.6.1",
@@ -17,6 +17,7 @@
     "@tabler/icons-react": "^2.47.0",
     "@vercel/postgres": "^0.7.2",
     "next": "14.0.1",
+    "ngrok": "^5.0.0-beta.2",
     "pg": "^8.11.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",

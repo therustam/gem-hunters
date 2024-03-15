@@ -25,8 +25,8 @@ function SignupForm() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const isMobile = useMediaQuery("(max-width: 1120px)");
-  const isMobileHeight = useMediaQuery('(max-height: 800px)')
-  const isBigResolution = useMediaQuery('(min-height: 1001px) ')
+  const isBigHeightThanLaptop = useMediaQuery('(max-height: 800px)')
+  const isBigResolution = useMediaQuery('(min-height: 1401px) ')
   const form = useForm({
     initialValues: {
       full_name: "",
@@ -47,6 +47,7 @@ function SignupForm() {
     if (form.validate().hasErrors) {
       return;
     }
+    
     const userNotificationId = notifications.show({
       loading: true,
       title: 'Creating Invoice',
@@ -67,7 +68,7 @@ function SignupForm() {
     })
    
     const userExist = await gerUserResponse.json();
-    // console.log("🚀 ~ handleSubmit ~ userExist:", userExist)
+    console.log("🚀 ~ handleSubmit ~ userExist:", userExist)
     if (userExist.message == 'User exist') {
       notifications.update({
           id:userNotificationId,
@@ -81,49 +82,7 @@ function SignupForm() {
 
       setLoading(false);
     } else{
-      
-      // const response = await fetch("/api/createCoinRemitterInvoice", {
-      //   method: "POST",
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-        
-      // });
-      // const data = await response.json();
-
-      
-      
-      // console.log("🚀 ~ handleSubmit ~ data:", data.data.merchant_id)
-      // console.log(data); 
-      // if (data.data.merchant_id) {
-      //     setLoading(false);
-      //     let paymentStatus= false;
-      //     router.push(`${data.data.url}`)
-      //     const responseusers = await fetch("/api/users", {
-      //         method: "POST",
-      //         headers: {
-      //             "Content-Type": "application/json",
-      //           },
-      //           body: JSON.stringify({ full_name:values.full_name,email:values.email,telegram:values.telegram,coinremitter_merchant_id:data.data.merchant_id,paymentStatus }),
-      //         });
-      //         // console.log("🚀 ~ handleSubmit ~ responseusers:", responseusers);
-      //         if (responseusers) {
-      //             notifications.update({
-                
-      //                 id:userNotificationId,
-      //                  color: 'green',
-      //                  title: 'User Exist',
-      //                  message: `User has been created successfully`,
-      //                  icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
-      //                  loading: false,
-      //        autoClose: 2000,
-      //      });
-      //   setLoading(false);
-      //   }
-        
-      // } 
-
-      
+       
       // Step 1: Create an invoice with NowPayments
       notifications.update({
         id:userNotificationId,
@@ -132,6 +91,7 @@ function SignupForm() {
         message: `Creating Invoice`,
         loading: true,
       });
+    
       const invoiceResponse = await fetch(`/api/createPayment`, {
         method: 'POST',
         headers: {
@@ -161,9 +121,12 @@ function SignupForm() {
             },
             body: JSON.stringify({ ...values, order_id: data.order_id }),
         });
-    
+        const userData =await response.json();
+        if (userData.message) {
+       
+          router.push(data.invoice_url);
         // Step 3: Redirect user to payment page
-        window.location.href = data.invoice_url; // Adjust according to the actual response
+      }
       }
 
     }
@@ -179,14 +142,14 @@ function SignupForm() {
       
         <BackgroundImage
         src="/images/Pattern.png"
-        h={isMobile? 1370:"100vh"}
-        w={"100%"}
-        style={{
-          overflow: 'hidden' 
-        }}
+        h={isMobile? 1570:"100vh"}
+        w={"100vw"}
+        // style={{
+        //   overflow: 'hidden' 
+        // }}
         >
           {/* <Flex justify={"center"} align={"center"} > */}
-          <Box h={"100vh"}
+          <Box h={isMobile ? "100%": "100vh"}
           // w={{xl:'91em'}}
           >            
           
@@ -206,53 +169,44 @@ function SignupForm() {
                 style={{
                   zIndex: "20",
                 }}
-                h={"100vh"}
+                h={isMobile ? "auto":"100vh"}
               >
-                <Box>
-                <Box h={"20%"} 
+                <Box h={isMobile ? "auto":"100vh"}>
+                <Box h={isBigHeightThanLaptop ?"29%" :"23%"} 
                  mr={isMobile? 0:-20}
+                 ml={20}
                 >
                 <Link href={"/"}>
               <Box 
               mt={isMobile?10:80}
               >
 
-                <Image alt="image" h={29} w={173} ml={isMobile?0:0} mr={isMobile?190:isMobileHeight ? 285 :300} src={"/images/logo.png"} />
+                <Image alt="image" h={29} w={173} ml={isMobile?-9:0} mr={isMobile?170:isBigHeightThanLaptop ? 285 :300} src={"/images/logo.png"} />
               </Box>
                 </Link>
                 <Box
                  mr={{ sm: "0", lg: 80 }}
                  >
                   <Text
-                    w={isMobile ? 350 :isMobileHeight? 391:491}
+                    w={isMobile ? 350 :isBigHeightThanLaptop? 391:isBigResolution? 691 : 491}
                     c={"#D5EDFF"}
                     fw={900}
-                    mr={isMobile?0:isMobileHeight? -20 :-200}
-                    fz={isMobile ? 30 :isMobileHeight? 40: 43}
+                    mr={isMobile?0:isBigHeightThanLaptop? -20 :-200}
+                    fz={isMobile ? 30 :isBigHeightThanLaptop? 40:isBigResolution? 64: 43}
                     mt={isMobile?60:66}
                     mb={isMobile?30:0}
                   >
                     SIMPLIFYING THE CRYPTO MARKETS
                   </Text>
-                  {/* <Title
-                    w={isMobile ? 350 :isMobileHeight? 391:691}
-                    c={"#D5EDFF"}
-                    fw={900}
-                    mr={isMobile?0:isMobileHeight? -20 :-200}
-                    fz={isMobile ? 30 :isMobileHeight? 40: 52}
-                    mt={isMobile?60:66}
-                    mb={isMobile?30:0}
-                  >
-                    SIMPLIFYING THE CRYPTO MARKETS
-                  </Title> */}
+              
                  </Box>
                  </Box>
-                 <Box h={"50%"}
-                  mr={isMobile? 0:isMobileHeight ? -60:-70}
+                 <Box h={"60%"}
+                  mr={isMobile? 0:isBigHeightThanLaptop ? -60:isBigResolution ? -120:-80}
                   >
                 <Image
-                  h={isMobile ? 400 :"100%"}
-                  w={isMobile ? 400 :"100%"}
+                  h={isMobile ? 380 :"100%"}
+                  w={isMobile ? 380 :"100%"}
                   src={"/images/SignupLeft.png"}
                 />
         </Box>
@@ -267,6 +221,7 @@ function SignupForm() {
                 align={"center"}
                 justify={isBigResolution?"start":"center"}
                 className={classes.flex}
+              
               >
                 <Text  c={"#D5EDFF"} fz={36} fw={900}>
                 Join Gem Hunters Now
@@ -300,13 +255,17 @@ function SignupForm() {
                     h={52}
                     fw={""}
                     ta={"center"}
+                    variant="transparent"
+                    fz={18}
+                    disabled={loading? true:false}
                     
                   >
                     {loading ? (
-                      <Loader color="#fff" type="dots" />
+                      <Loader color="#000" type="dots" />
                     ) : (
                       <>
-                       Go To Checkout<Image alt="image" h={28} w={28} src={"/images/hammer.webp"} />
+                       Go To Checkout
+                       {/* <Image alt="image" h={28} w={28} src={"/images/hammer.webp"} /> */}
                       </>
                     )}
       
