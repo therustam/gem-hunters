@@ -263,10 +263,11 @@ function SignupForm() {
                     fw={""}
                     ta={"center"}
                     variant="transparent"
+                    fz={18}
                     
                   >
                     {loading ? (
-                      <Loader color="#b9f4fd" type="dots" />
+                      <Loader color="#000" type="dots" />
                     ) : (
                       <>
                        Go To Checkout
