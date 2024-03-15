@@ -16,7 +16,7 @@ const pool = new Pool({
     // };
     
     
-export default async function POST(req, res) {
+export async function POST(request, response){
   try {
     if (req.method !== 'POST') {
       return res.status(405).json({ message: 'Method Not Allowed' });
@@ -24,8 +24,8 @@ export default async function POST(req, res) {
         
     const IPN_SECRET = 'xtXcZD3BxSpF7HjnLjsfMrOvPJtJFKeY';
 
-    const receivedHmac = req.headers.get('x-nowpayments-sig');
-    const requestBody = JSON.stringify(req.body);
+    const receivedHmac = request.headers.get('x-nowpayments-sig');
+    const requestBody = JSON.stringify(request.body);
     const hmac = crypto.createHmac('sha512', IPN_SECRET);
     hmac.update(requestBody);
     const signature = hmac.digest('hex');
@@ -33,7 +33,7 @@ export default async function POST(req, res) {
       if (signature === receivedHmac) {
       // Signature matches, process the notification
       // Convert body to JSON and process further according to your logic
-      const data = JSON.parse(req.body);
+      const data = JSON.parse(request.body);
       console.log("Valid IPN received", data);
 
         // Here, you can update the payment status in your database
