@@ -3,7 +3,7 @@ import classes from "./InputText.module.css";
 import { useToggle } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { IconX, IconCheck, IconCross } from "@tabler/icons-react";
-import { Loader, Notification, rem } from "@mantine/core";
+import { Loader, Notification, Title, rem } from "@mantine/core";
 import useSWR from "swr";
 import {
   TextInput,
@@ -19,7 +19,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useMediaQuery } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
-
 
 
 function SignupForm() {
@@ -48,15 +47,17 @@ function SignupForm() {
     if (form.validate().hasErrors) {
       return;
     }
-    
-    const getUserNotificationId = notifications.show({
+    const userNotificationId = notifications.show({
       loading: true,
-      title: 'Creating',
-      message: 'Creating and checing if user already exist',
+      title: 'Creating Invoice',
+      message: 'Checking if user info already exist',
       autoClose: false,
       withCloseButton: false,
     });
+
     setLoading(true);
+
+    //checking if userExist
     const gerUserResponse =await fetch(`/api/users?email=${values.email}&telegram=${values.telegram}`, {
       method: 'GET',
       headers: {
@@ -69,8 +70,7 @@ function SignupForm() {
     // console.log("🚀 ~ handleSubmit ~ userExist:", userExist)
     if (userExist.message == 'User exist') {
       notifications.update({
-       
-          id:getUserNotificationId,
+          id:userNotificationId,
            color: 'red',
            title: 'User Exist',
            message: `User from this ${values.email} exists`,
@@ -78,44 +78,94 @@ function SignupForm() {
            loading: false,
            autoClose: 2000,
          });
+
       setLoading(false);
     } else{
-      const response = await fetch("/api/createCoinRemitterInvoice", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      
+      // const response = await fetch("/api/createCoinRemitterInvoice", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
         
+      // });
+      // const data = await response.json();
+
+      
+      
+      // console.log("🚀 ~ handleSubmit ~ data:", data.data.merchant_id)
+      // console.log(data); 
+      // if (data.data.merchant_id) {
+      //     setLoading(false);
+      //     let paymentStatus= false;
+      //     router.push(`${data.data.url}`)
+      //     const responseusers = await fetch("/api/users", {
+      //         method: "POST",
+      //         headers: {
+      //             "Content-Type": "application/json",
+      //           },
+      //           body: JSON.stringify({ full_name:values.full_name,email:values.email,telegram:values.telegram,coinremitter_merchant_id:data.data.merchant_id,paymentStatus }),
+      //         });
+      //         // console.log("🚀 ~ handleSubmit ~ responseusers:", responseusers);
+      //         if (responseusers) {
+      //             notifications.update({
+                
+      //                 id:userNotificationId,
+      //                  color: 'green',
+      //                  title: 'User Exist',
+      //                  message: `User has been created successfully`,
+      //                  icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
+      //                  loading: false,
+      //        autoClose: 2000,
+      //      });
+      //   setLoading(false);
+      //   }
+        
+      // } 
+
+      
+      // Step 1: Create an invoice with NowPayments
+      notifications.update({
+        id:userNotificationId,
+        color: 'green',
+        title: 'Creating Invoice',
+        message: `Creating Invoice`,
+        loading: true,
       });
-  
-      const data = await response.json();
-      console.log(data); 
-      if (data.data.merchant_id) {
-        setLoading(false);
-        let paymentStatus= false;
-        router.push(`${data.data.url}`)
-        const responseusers = await fetch("/api/users", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ full_name:values.full_name,email:values.email,telegram:values.telegram,coinremitter_merchant_id:data.data.merchant_id,paymentStatus }),
-        });
-        if (responseusers) {
+      const invoiceResponse = await fetch(`/api/createPayment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      const data = await invoiceResponse.json();
+      console.log("data",data)
+      if(data.order_id)
+      {
+        // setLoading(false);
+          // Step 2: Save orderId in user's record (adjust according to your API/backend setup)
           notifications.update({
-       
-            id:getUserNotificationId,
-             color: 'green',
-             title: 'User Exist',
-             message: `User has been created successfully`,
-             icon: <IconCheck style={{ width: rem(18), height: rem(18) }} />,
-             loading: false,
-             autoClose: 2000,
-           });
-        setLoading(false);
-        }
-        
-      } 
+            id:userNotificationId,
+            color: 'green',
+            title: 'Creating User',
+            message: `Saving user & redirecting to invoice`,
+            loading: true,
+            autoClose: 2000,
+          });
+          
+          const response=await fetch("/api/users", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ ...values, order_id: data.order_id }),
+        });
+    
+        // Step 3: Redirect user to payment page
+        window.location.href = data.invoice_url; // Adjust according to the actual response
+      }
+
     }
    
   
@@ -184,6 +234,17 @@ function SignupForm() {
                   >
                     SIMPLIFYING THE CRYPTO MARKETS
                   </Text>
+                  {/* <Title
+                    w={isMobile ? 350 :isMobileHeight? 391:691}
+                    c={"#D5EDFF"}
+                    fw={900}
+                    mr={isMobile?0:isMobileHeight? -20 :-200}
+                    fz={isMobile ? 30 :isMobileHeight? 40: 52}
+                    mt={isMobile?60:66}
+                    mb={isMobile?30:0}
+                  >
+                    SIMPLIFYING THE CRYPTO MARKETS
+                  </Title> */}
                  </Box>
                  </Box>
                  <Box h={"50%"}
@@ -239,8 +300,6 @@ function SignupForm() {
                     h={52}
                     fw={""}
                     ta={"center"}
-                    variant="transparent"
-                    c={"#b9f4fd"}
                     
                   >
                     {loading ? (
