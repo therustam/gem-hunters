@@ -19,7 +19,7 @@ export async function POST(req) {
         price_currency: "usd",
         order_id,  
         order_description:'Stocks',
-        ipn_callback_url: "https://gem-hunters-2f4da8jhe-russ-the-man.vercel.app/api/nowpaymentswebhook",
+        ipn_callback_url: "https://gem-hunters-puce.vercel.app/api/nowpaymentswebhook",
         success_url: "https://nowpayments.io",
         cancel_url: "https://nowpayments.io",
         partially_paid_url: "https://nowpayments.io",
