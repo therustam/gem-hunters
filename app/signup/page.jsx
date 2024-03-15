@@ -47,11 +47,7 @@ function SignupForm() {
     if (form.validate().hasErrors) {
       return;
     }
-    let full_name = values.full_name;
-    let nameParts = full_name.split(" ");
-    let firstName = nameParts[0];
-    let lastName = nameParts[1];
-
+    
     const userNotificationId = notifications.show({
       loading: true,
       title: 'Creating Invoice',
@@ -125,10 +121,12 @@ function SignupForm() {
             },
             body: JSON.stringify({ ...values, order_id: data.order_id }),
         });
-    
+        const userData =await response.json();
+        if (userData.message) {
+       
+          router.push(data.invoice_url);
         // Step 3: Redirect user to payment page
-        router.push(data.invoice_url);
-        // window.location.href = data.invoice_url;
+      }
       }
 
     }
@@ -200,17 +198,7 @@ function SignupForm() {
                   >
                     SIMPLIFYING THE CRYPTO MARKETS
                   </Text>
-                  {/* <Title
-                    w={isMobile ? 350 :isBigHeightThanLaptop? 391:691}
-                    c={"#D5EDFF"}
-                    fw={900}
-                    mr={isMobile?0:isBigHeightThanLaptop? -20 :-200}
-                    fz={isMobile ? 30 :isBigHeightThanLaptop? 40: 52}
-                    mt={isMobile?60:66}
-                    mb={isMobile?30:0}
-                  >
-                    SIMPLIFYING THE CRYPTO MARKETS
-                  </Title> */}
+              
                  </Box>
                  </Box>
                  <Box h={"60%"}
@@ -269,6 +257,7 @@ function SignupForm() {
                     ta={"center"}
                     variant="transparent"
                     fz={18}
+                    disabled={loading? true:false}
                     
                   >
                     {loading ? (
