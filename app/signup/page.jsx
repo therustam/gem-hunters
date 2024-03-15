@@ -217,7 +217,7 @@ function SignupForm() {
               mt={isMobile?10:80}
               >
 
-                <Image h={29} w={173} ml={isMobile?0:0} mr={isMobile?190:isMobileHeight ? 285 :300} src={"/images/logo.png"} />
+                <Image alt="image" h={29} w={173} ml={isMobile?0:0} mr={isMobile?190:isMobileHeight ? 285 :300} src={"/images/logo.png"} />
               </Box>
                 </Link>
                 <Box
@@ -306,7 +306,7 @@ function SignupForm() {
                       <Loader color="#fff" type="dots" />
                     ) : (
                       <>
-                       Go To Checkout<Image h={28} w={28} src={"/images/hammer.webp"} />
+                       Go To Checkout<Image alt="image" h={28} w={28} src={"/images/hammer.webp"} />
                       </>
                     )}
       

@@ -27,7 +27,7 @@ const Step2 = () => {
     <Box pb={"60px"} h={"auto"}>
        <Link href={"/"}> 
       <Box pt={60}>
-      <Image h={29} w={173}  ml={{sm:20,lg:60}} src={"/images/logo.png"} />
+      <Image alt="image" h={29} w={173}  ml={{sm:20,lg:60}} src={"/images/logo.png"} />
       </Box>
       </Link>
       <Flex justify="center"  align="center" direction={"column"} wrap="wrap">
@@ -35,7 +35,7 @@ const Step2 = () => {
         YOU ARE ALL SET! CHECK YOUR EMAIL
      </Text>
      <Text fz={24} mb={80} c={"#FFF"}>Please check your email for a private invite along wth the next steps.</Text>
-     <Image src={"/images/SignupCharacter2.png"} w={{sm:200,lg:500}} h={{sm:200,lg:500}}  />
+     <Image alt="image" src={"/images/SignupCharacter2.png"} w={{sm:200,lg:500}} h={{sm:200,lg:500}}  />
       </Flex>
      
       
