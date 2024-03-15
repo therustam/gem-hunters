@@ -7,12 +7,12 @@ export async function POST(req) {
     // Generate a unique order ID
     const order_id = uuidv4();
     // console.log("POST req orderId->",orderId)
-    const response = await fetch(process.env.NOW_PAYMENT_URL, {
+    const response = await fetch("https://api.nowpayments.io/v1/invoice", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         // 'x-api-key': process.env.NOW_PAYMENT_API_KEY,
-        'x-api-key': process.env.NOW_PAYMENT_API_KEY,
+        'x-api-key': "S14GM4E-BT549YD-P3FXCWH-2FSC0AX",
       },
       body: JSON.stringify({
         price_amount: 999,
