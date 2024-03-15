@@ -18,7 +18,20 @@ export async function POST(req, res){
       text: `UPDATE users SET paymentStatus = true WHERE order_id = $1;`,
       values: [paymentId]
     };
-    const resultwebhoook=await pool.query(updateQuery);
+    await pool.query(updateQuery);
+    const selectQuery = {
+      text: `SELECT full_name FROM users WHERE order_id = $1;`,
+      values: [paymentId]
+    };
+  
+    const result = await pool.query(selectQuery);
+    if (result.rows.length > 0) {
+      const full_name =await result.rows[0].full_name; 
+      const nameParts = full_name.split(" ");
+      const firstName = nameParts[0];
+      const lastName = nameParts[1];
+      
+    } 
   return NextResponse.json({ message: "User Payment Status has been set to true" },{status:200});
 
   }

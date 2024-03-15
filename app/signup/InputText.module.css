@@ -38,4 +38,7 @@
   transition: box-shadow .25s cubic-bezier(.165, .84, .44, 1);
 }
 
- 
+.myButton:hover{
+  color: black;
+  box-shadow: 0 0 4px 1px #9bddfd;
+} 

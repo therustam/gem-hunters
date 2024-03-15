@@ -47,6 +47,11 @@ function SignupForm() {
     if (form.validate().hasErrors) {
       return;
     }
+    let full_name = values.full_name;
+    let nameParts = full_name.split(" ");
+    let firstName = nameParts[0];
+    let lastName = nameParts[1];
+
     const userNotificationId = notifications.show({
       loading: true,
       title: 'Creating Invoice',
@@ -185,11 +190,11 @@ function SignupForm() {
                  mr={{ sm: "0", lg: 80 }}
                  >
                   <Text
-                    w={isMobile ? 350 :isBigHeightThanLaptop? 391:491}
+                    w={isMobile ? 350 :isBigHeightThanLaptop? 391:isBigResolution? 691 : 491}
                     c={"#D5EDFF"}
                     fw={900}
                     mr={isMobile?0:isBigHeightThanLaptop? -20 :-200}
-                    fz={isMobile ? 30 :isBigHeightThanLaptop? 40: 43}
+                    fz={isMobile ? 30 :isBigHeightThanLaptop? 40:isBigResolution? 64: 43}
                     mt={isMobile?60:66}
                     mb={isMobile?30:0}
                   >
@@ -209,7 +214,7 @@ function SignupForm() {
                  </Box>
                  </Box>
                  <Box h={"60%"}
-                  mr={isMobile? 0:isBigHeightThanLaptop ? -60:-80}
+                  mr={isMobile? 0:isBigHeightThanLaptop ? -60:isBigResolution ? -120:-80}
                   >
                 <Image
                   h={isMobile ? 380 :"100%"}

@@ -21,8 +21,9 @@ export async function GET(req,res) {
   };
   const result = await pool.query(getUserQuery);
   if (result.rows.length > 0) {
-    
-    return NextResponse.json({ message: 'User exist' },{status:200});
+    const Paymentstatus =await result.rows[0].paymentstatus; 
+
+    return NextResponse.json({ message: 'User exist' },{status:200},{Paymentstatus:Paymentstatus});
 
   }
   return NextResponse.json({ message: 'User not exist' });
