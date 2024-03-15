@@ -1,52 +1,26 @@
-import { NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import { Pool } from 'pg';
-import crypto from 'crypto';
-
-// Your IPN Secret Key from NowPayments
 
 const pool = new Pool({
-  connectionString: "postgres://default:3yv0cjtmhRZk@ep-jolly-lake-a4xkkfdk-pooler.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require",
-  // Add SSL configuration if required for your database
+  connectionString: process.env.POSTGRES_URL,
 });
-
-// export const config = {
-  //   api: {
-    //     bodyParser: false, // Disable body parsing for NowPayments webhook
-    //   },
-    // };
     
-    
-export async function POST(request, response){
-  try {
-    if (req.method !== 'POST') {
-      return res.status(405).json({ message: 'Method Not Allowed' });
-    }
-        
-    const IPN_SECRET = 'xtXcZD3BxSpF7HjnLjsfMrOvPJtJFKeY';
+export async function POST(req, res){
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method Not Allowed' });
+  }
 
-    const receivedHmac = request.headers.get('x-nowpayments-sig');
-    const requestBody = JSON.stringify(request.body);
-    const hmac = crypto.createHmac('sha512', IPN_SECRET);
-    hmac.update(requestBody);
-    const signature = hmac.digest('hex');
+  const body = await req.json();
+  const paymentId = body.order_id;
+  const status = body.payment_status;
+  if (status == `finished`) {
+    const updateQuery = {
+      text: `UPDATE users SET paymentStatus = true WHERE order_id = $1;`,
+      values: [paymentId]
+    };
+    const resultwebhoook=await pool.query(updateQuery);
+  return NextResponse.json({ message: "User Payment Status has been set to true" },{status:200});
 
-      if (signature === receivedHmac) {
-      // Signature matches, process the notification
-      // Convert body to JSON and process further according to your logic
-      const data = JSON.parse(request.body);
-      console.log("Valid IPN received", data);
-
-        // Here, you can update the payment status in your database
-        // For example, set paymentStatus to true for the user/order
-
-        // return new NextResponse(JSON.stringify({ message: 'IPN Processed Successfully' }), {status: 200});
-        return res.status(200).json({ message: 'IPN Processed Successfully' });
-      } else {
-        console.error('Invalid IPN signature');
-        return res.status(400).json({ error: 'Invalid signature' });
-      }
-    } catch (error) {
-      console.error('Error processing IPN:', error);
-      return res.status(500).json({ error: 'Internal Server Error' });
-    }
+  }
+  return NextResponse.json({ message: "Payment recieved successfully" },{status:200});
 }

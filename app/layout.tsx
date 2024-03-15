@@ -45,7 +45,7 @@ export default function RootLayout({ children }: { children: any }) {
         <MantineProvider theme={
           {
             fontFamily: `${myFont}`,
-            // headings: { fontFamily: `${myFont}` },
+            // headings: { fontFamily: 'ClashDisplay' },
             breakpoints: {
               xs: '30em',
               sm: '48em',
