@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'FatFrank';
+    src: url('../fonts/fatfrank-webfont.ttf') format('truetype');
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'ClashDisplay';
+    src: url('../fonts/ClashDisplay-Variable.ttf') format('truetype');
+    font-display: swap;
+  }
+  
