@@ -5,15 +5,13 @@ import { IconCheck } from '@tabler/icons-react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 
-const page = () => {
+const PayInvoice = () => {
     const searchParams = useSearchParams();
-    const full_name =searchParams.get("name");
     const email =searchParams.get("email");
     const telegram =searchParams.get("telegram");
-    const nameParts = full_name.split(" ");
+    
     const router = useRouter()
-    const firstName = nameParts[0];
-    const lastName = nameParts[1];
+    
     const checkUserPaymentStatus = async () =>{
         const userNotificationId = notifications.show({
             loading: true,
@@ -100,4 +98,4 @@ const page = () => {
   )
 }
 
-export default page
+export default PayInvoice;
