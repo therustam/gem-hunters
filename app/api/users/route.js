@@ -7,10 +7,8 @@ const pool = createPool({
 });
 
 export async function GET(req,res) {
-  // console.log("I am at get users")
   const searchParams = req.nextUrl.searchParams
   const email = searchParams.get('email')
-  // console.log("🚀 ~ GET ~ email:", email)
   const telegram = searchParams.get('telegram')
   try {
   if (!email || !telegram) {
@@ -44,11 +42,12 @@ export async function POST(req, res) {
       throw new Error("Failed to create connection pool");
     }
     const currentDate = new Date();
+    const paymentstatus= false;
     const insertUserQuery = {
-      text: `INSERT INTO users (full_name, email, telegram, order_id, dateandtime)
-             VALUES ($1, $2, $3, $4, $5)
+      text: `INSERT INTO users (full_name, email, telegram,paymentstatus, order_id, dateandtime)
+             VALUES ($1, $2, $3, $4, $5,$6)
              RETURNING *;`,
-      values: [full_name, email, telegram, order_id, currentDate]
+      values: [full_name, email, telegram,paymentstatus, order_id, currentDate]
     };
 
     const result = await pool.query(insertUserQuery);
@@ -89,7 +88,6 @@ export async function PUT(req, res) {
     };
 
     const result = await pool.query(updateQuery);
-    // console.log("🚀 ~ PUT ~ result:", result);
 
     if (result.rowCount > 0) {  // Check if any rows were affected
       return NextResponse.json({ message: 'Order id has been updated successfully!', updated:true });
@@ -103,21 +101,3 @@ export async function PUT(req, res) {
   }
 }
 
-
-// async function sendPostRequest(url, data) {
-//   try {
-    
-//     // console.log(data.cta_btn)
-//     const req=await fetch(url, {
-//       method: 'POST',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(data)
-//     });
-
-    
-//     console.log(req.status===200?"Successfull Payment POST Request sent to make.com for the following user":"Successfull Payment Request wasn't able to sent to make.com")
-
-//   } catch (error) {
-//     console.error('Error sending POST request:', error);
-//   }
-// }
