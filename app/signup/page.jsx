@@ -128,13 +128,13 @@ function SignupForm() {
  
   return (
     <>
+    {/* for desktop */}
       <BackgroundImage
         src="/images/Pattern.png"
         h={isMobile ? 1570 : "100vh"}
         w={"100vw"}
-      
+      display={isMobile? "none":"block"}
       >
-      
         <Box
           h={isMobile ? "100%" : "100vh"}
           // w={{xl:'91em'}}
@@ -290,6 +290,106 @@ function SignupForm() {
           </Flex>
         </Box>
       </BackgroundImage>
+      {/* for mobile */}
+      <Flex
+        h={isMobile ? "100%" : "100vh"}
+        bg={"#08172A"}
+        display={isMobile ? "flex" : "none"}
+        direction={"column"}
+      >
+        <Flex
+          justify="center"
+          align="center"
+          direction={`${isMobile ? "column" : "row"}`}
+          wrap="wrap"
+        >
+          <Flex
+            w={`${isMobile ? "100%" : "50%"}`}
+            // pt={isMobile ? 50 : isBigResolution ? 300 : 0}
+            // h={ "50%"}
+            direction={"column"}
+            // gap={"10px"}
+            align={"center"}
+            justify={"start"}
+            className={classes.mobile_flex}
+          >
+            <Link href={"/"}>
+              <Box pb={100}>
+                <Image
+                  alt="image"
+                  h={"100%"}
+                  w={"100%"}
+                  src={"/images/logo.png"}
+                />
+              </Box>
+            </Link>
+            <Text c={"#D5EDFF"} fz={30} fw={900}>
+              Join Gem Hunters Now
+            </Text>
+            <Text c={"#D5EDFF"} fz={16}>
+              Trusted by industry leaders since 2017
+            </Text>
+            <form onSubmit={form.onSubmit(handleSubmit)}>
+              <TextInput
+                ff={"heading"}
+                classNames={{ input: classes.textInput }}
+                variant="unstyled"
+                placeholder="Full Name"
+                {...form.getInputProps("full_name")}
+              />
+              <TextInput
+                variant="unstyled"
+                classNames={{ input: classes.textInput }}
+                placeholder="Email Address"
+                {...form.getInputProps("email")}
+              />
+              <TextInput
+                variant="unstyled"
+                classNames={{ input: classes.textInput }}
+                placeholder="Telegram"
+                {...form.getInputProps("telegram")}
+              />
+              <Button
+                className={classes.myButton}
+                type="submit"
+                mt="xl"
+                w={isMobile ? 350 : 470}
+                h={52}
+                fw={""}
+                ta={"center"}
+                variant="transparent"
+                fz={18}
+                disabled={loading ? true : false}
+              >
+                {loading ? (
+                  <Loader color="#000" type="dots" />
+                ) : (
+                  <>
+                    Go To Checkout
+                    {/* <Image alt="image" h={28} w={28} src={"/images/hammer.webp"} /> */}
+                  </>
+                )}
+              </Button>
+              <Text c={"#D5EDFF"} fz={14} mt={27}>
+                Step 1 of 2
+              </Text>
+            </form>
+          </Flex>
+          <BackgroundImage src="/images/Pattern.png" h={"auto"} w={"100%"}>
+            <Flex pl={20} pb={20} direction={"column"} h={"auto"}>
+              <Box mr={{ sm: "0", lg: 80 }}>
+                <Text c={"#D5EDFF"} fz={32} fw={900} w={350}>
+                  SIMPLIFYING THE CRYPTO MARKETS
+                </Text>
+              </Box>
+
+              <Box h={"100%"} mt={-20}>
+                <Image h={400} w={380} src={"/images/SignupLeft.png"} />
+              </Box>
+            </Flex>
+          </BackgroundImage>
+        </Flex>
+      </Flex>
     </>
   );
 }

@@ -24,6 +24,15 @@
   text-align: center;
   height: 100vh !important;
 }
+.mobile_flex {
+  border-radius:0 0 22px 22px;
+  border: 1px solid rgba(185, 244, 253, 0.22);
+  background: linear-gradient(142deg, #08172A 17.99%, #040D1B 76.11%);
+  backdrop-filter: blur(13.1px);
+  padding: 20px;
+  text-align: center;
+  /* height: 100vh !important; */
+}
 
 .myButton {
   min-width: 173px;
