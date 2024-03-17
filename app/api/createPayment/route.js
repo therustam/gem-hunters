@@ -2,11 +2,8 @@ import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(req) {
-  // const { amount, currency, order_id, order_description, ipn_callback_url, success_url, cancel_url, partially_paid_url, is_fixed_rate, is_fee_paid_by_user } = req.body;
   try {
-    // Generate a unique order ID
     const order_id = uuidv4();
-    // console.log("POST req orderId->",orderId)
     const response = await fetch("https://api.nowpayments.io/v1/invoice", {
       method: 'POST',
       headers: {
