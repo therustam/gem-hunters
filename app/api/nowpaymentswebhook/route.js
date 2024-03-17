@@ -1,6 +1,6 @@
 import {  NextResponse } from "next/server";
 import { Pool } from 'pg';
-
+import { sendPostRequest } from "../../utils/helper";
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
 });
@@ -50,20 +50,3 @@ export async function POST(req, res){
   return NextResponse.json({ message: "Payment recieved successfully" },{status:200});
 }
 
-async function sendPostRequest(url, data) {
-  try {
-    
-    console.log(data.cta_btn)
-    const req=await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    
-    console.log(req.status===200?"Successfull Payment POST Request sent to make.com for the following user":"Successfull Payment Request wasn't able to sent to make.com")
-
-  } catch (error) {
-    console.error('Error sending POST request:', error);
-  }
-}

@@ -9,9 +9,7 @@ const PayInvoice = () => {
     const searchParams = useSearchParams();
     const email =searchParams.get("email");
     const telegram =searchParams.get("telegram");
-    
-    const router = useRouter()
-    
+    const router = useRouter() 
     const checkUserPaymentStatus = async () =>{
         const userNotificationId = notifications.show({
             loading: true,
@@ -20,7 +18,7 @@ const PayInvoice = () => {
             autoClose: false,
             withCloseButton: false,
           });
-      
+      //step 1 check for payment status in database pf specific user
         const gerUserResponse =await fetch(`/api/users?email=${email}&telegram=${telegram}`, {
             method: 'GET',
             headers: {
@@ -30,7 +28,6 @@ const PayInvoice = () => {
           })
          
           const userExist = await gerUserResponse.json();
-        //   console.log("🚀 ~ checkUserPaymentStatus ~ userExist:", userExist);
           if (userExist.paymentStatus == true) {
             notifications.update({
                 id:userNotificationId,
@@ -51,6 +48,7 @@ const PayInvoice = () => {
                 autoClose: false,
                 withCloseButton: false,
                });
+               // step 2 if the user isn't payed yet  create an invoice and redirect him to it
             const invoiceResponse = await fetch(`/api/createPayment`, {
                 method: 'POST',
                 headers: {
@@ -59,8 +57,8 @@ const PayInvoice = () => {
               })
         
               const data = await invoiceResponse.json();
-            //   console.log("🚀 ~ checkUserPaymentStatus ~ data:", data);
               if(data.order_id){
+                // step 3 update the order_id in databse
                 const response= await fetch("/api/users", {
                     method: "PUT",
                     headers: {
@@ -69,7 +67,6 @@ const PayInvoice = () => {
                     body: JSON.stringify({ email, order_id: data.order_id }),
                 });
                 const userData = await  response.json();
-                // console.log("🚀 ~ checkUserPaymentStatus ~ userData:", userData);
                 if (userData.updated == true) {
                     notifications.update({
                         id:userNotificationId,

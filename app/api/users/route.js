@@ -1,6 +1,7 @@
 // import { sql } from '@vercel/postgres';
 import { NextResponse } from 'next/server';
 import { createPool } from '@vercel/postgres';
+import { sendPostRequest } from '../../utils/helper';
 const pool = createPool({
   connectionString: process.env.POSTGRES_URL
 });
@@ -28,7 +29,7 @@ export async function GET(req,res) {
   }
   return NextResponse.json({ message: 'User not exist' });
   } catch (error) {
-    console.log("🚀 ~ GET ~ error:", error)
+    console.error("🚀 ~ GET ~ error:", error)
     
   }
   return NextResponse.json({ message: 'User not exist' });
@@ -51,7 +52,7 @@ export async function POST(req, res) {
     };
 
     const result = await pool.query(insertUserQuery);
-    console.log(" ~ POST ~ result:", result);
+    console.error(" ~ POST ~ result:", result);
 
     if (result.rows.length > 0) {
       sendPostRequest('https://hook.us1.make.com/k965pa9fucx98txicvw3o9b1dbb272s5', {
@@ -60,7 +61,6 @@ export async function POST(req, res) {
         email: email,
         telegram:telegram,
         order_id: order_id, 
-        // cta_btn:`https://gem-hunters-puce.vercel.app?name=${userData.full_name}&email=${userData.email}&telegram=${userData.telegram}`
       });
       return NextResponse.json({ message: 'User created successfully!' });
     } else {
@@ -104,20 +104,20 @@ export async function PUT(req, res) {
 }
 
 
-async function sendPostRequest(url, data) {
-  try {
+// async function sendPostRequest(url, data) {
+//   try {
     
-    // console.log(data.cta_btn)
-    const req=await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
+//     // console.log(data.cta_btn)
+//     const req=await fetch(url, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify(data)
+//     });
 
     
-    console.log(req.status===200?"Successfull Payment POST Request sent to make.com for the following user":"Successfull Payment Request wasn't able to sent to make.com")
+//     console.log(req.status===200?"Successfull Payment POST Request sent to make.com for the following user":"Successfull Payment Request wasn't able to sent to make.com")
 
-  } catch (error) {
-    console.error('Error sending POST request:', error);
-  }
-}
+//   } catch (error) {
+//     console.error('Error sending POST request:', error);
+//   }
+// }
