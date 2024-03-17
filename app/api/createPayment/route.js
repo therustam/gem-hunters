@@ -29,7 +29,6 @@ export async function POST(req) {
 
     if (response.ok) {
       return NextResponse.json(data);
-      console.log('asdhauf')
     } else {
       return NextResponse.json({ message: "Error creating invoice", data });
     }

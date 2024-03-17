@@ -98,7 +98,6 @@ function SignupForm() {
       });
 
       const data = await invoiceResponse.json();
-      console.log("data", data);
       if (data.order_id) {
         setLoading(false);
         // Step 2: Save orderId in user's record (adjust according to your API/backend setup)
@@ -126,9 +125,7 @@ function SignupForm() {
       }
     }
   };
-  useEffect(() =>{
-    sendPostRequest("sdsaas","safasdfsadf")
-  })
+ 
   return (
     <>
       <BackgroundImage
