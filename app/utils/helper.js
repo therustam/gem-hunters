@@ -1,6 +1,7 @@
 //hook.us api
 
 export async function sendPostRequest(url, data) {
+    // console.log("🚀 ~ sendPostRequest ~ data:", data)
     try {
       
       const req=await fetch(url, {
@@ -8,7 +9,6 @@ export async function sendPostRequest(url, data) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-  // console.log("req.body",req.body)
   
     } catch (error) {
       console.error('Error sending POST request:', error);

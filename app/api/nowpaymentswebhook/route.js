@@ -6,12 +6,13 @@ const pool = new Pool({
 });
 
 export async function POST(req, res) {
+  // console.log("i am at webhook")
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
   const body = await req.json();
-  console.log("🚀 ~ POST ~ body:", body)
+  // console.log("🚀 ~ POST ~ body:", body)
   const paymentId = body.order_id;
   const status = body.payment_status;
   if (status == `finished`) {
@@ -26,6 +27,7 @@ export async function POST(req, res) {
     };
 
     const result = await pool.query(selectQuery);
+    // console.log("🚀 ~ POST ~ result:", result)
 
     if (result.rows.length > 0) {
       const userData = await result.rows[0];
@@ -50,7 +52,7 @@ export async function POST(req, res) {
           created_at: body.created_at,
           updated_at: body.updated_at,
           purchase_id: body.purchase_id,
-          cta_btn: `https://gem-hunters-puce.vercel.app?name=${userData.full_name}&email=${userData.email}&telegram=${userData.telegram}`,
+          cta_btn: `https://gem-hunters-puce.vercel.app/payinvoice?name=${userData.full_name}&email=${userData.email}&telegram=${userData.telegram}`,
         }
       );
     }
