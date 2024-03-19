@@ -11,6 +11,7 @@ export async function POST(req, res) {
   }
 
   const body = await req.json();
+  // console.log("🚀 ~ POST ~ body:", body)
   const paymentId = body.order_id;
   const status = body.payment_status;
   if (status == `finished`) {
@@ -28,6 +29,7 @@ export async function POST(req, res) {
 
     if (result.rows.length > 0) {
       const userData = await result.rows[0];
+      // console.log("🚀 ~ POST ~ userData:", userData)
       const nameParts = userData.full_name.split(" ");
       const firstName = nameParts[0];
       const lastName = nameParts[1];

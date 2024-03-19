@@ -376,7 +376,7 @@ function SignupForm() {
             </form>
           </Flex>
           <BackgroundImage src="/images/Pattern.png" h={"auto"} w={"100%"}>
-            <Flex pl={20} pb={20} direction={"column"} h={"auto"} align={"center"} justify={"center"}>
+            <Flex pl={20} mt={40} pb={20} direction={"column"} h={"auto"} align={"center"} justify={"center"}>
               <Box mr={{ sm: "0", lg: 80 }}>
                 <Text c={"#D5EDFF"} fz={32} fw={900} w={350}>
                   SIMPLIFYING THE CRYPTO MARKETS
