@@ -12,7 +12,7 @@ export async function POST(req) {
         'x-api-key': "S14GM4E-BT549YD-P3FXCWH-2FSC0AX",
       },
       body: JSON.stringify({
-        price_amount: 999,
+        price_amount: 1,
         price_currency: "usd",
         order_id,  
         order_description:'Stocks',

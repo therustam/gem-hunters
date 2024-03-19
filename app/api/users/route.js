@@ -37,6 +37,9 @@ export async function POST(req, res) {
   const nameParts = full_name.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts[1];
+  // console.log("🚀 ~ POST ~ lastName:", lastName)
+  // console.log("🚀 ~ POST ~ firstName:",firstName)
+
   try {
     if (!pool) {
       throw new Error("Failed to create connection pool");
