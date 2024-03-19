@@ -11,7 +11,7 @@ export async function POST(req, res) {
   }
 
   const body = await req.json();
-  // console.log("🚀 ~ POST ~ body:", body)
+  console.log("🚀 ~ POST ~ body:", body)
   const paymentId = body.order_id;
   const status = body.payment_status;
   if (status == `finished`) {

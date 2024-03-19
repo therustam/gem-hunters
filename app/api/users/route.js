@@ -54,7 +54,7 @@ export async function POST(req, res) {
     };
 
     const result = await pool.query(insertUserQuery);
-    console.error(" ~ POST ~ result:", result);
+    // console.error(" ~ POST ~ result:", result);
 
     if (result) {
       sendPostRequest('https://hook.us1.make.com/yu7yn5nu6044feteehuyccnawdliejw7', {
