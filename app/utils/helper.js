@@ -9,7 +9,6 @@ export async function sendPostRequest(url, data) {
         body: JSON.stringify(data)
       });
   
-      
   
     } catch (error) {
       console.error('Error sending POST request:', error);
