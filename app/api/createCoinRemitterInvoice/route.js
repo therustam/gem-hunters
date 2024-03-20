@@ -11,7 +11,7 @@ export async function POST(req, res ) {
         // const API_KEY = "$2y$10$DIVAbCj6mLpY2TviOPVD2eovRxguIXc3V1fVndSo5gN46afKMDxni";
       
 
-       const response = await fetch("https://coinremitter.com/api/v3/TCN/create-invoice", {
+       const response = await fetch("https://coinremitter.com/api/v3/ETH/create-invoice", {
            method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
