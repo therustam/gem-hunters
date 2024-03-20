@@ -1,7 +1,7 @@
 //hook.us api
 
 export async function sendPostRequest(url, data) {
-    // console.log("🚀 ~ sendPostRequest ~ data:", data)
+    // console.log("🚀 ~ sendPostRequest ~ data:", data);
     try {
       
       const req=await fetch(url, {

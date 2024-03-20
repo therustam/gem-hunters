@@ -65,11 +65,13 @@ export async function POST(req, res) {
         order_id: order_id, 
       });
       return NextResponse.json({ message: 'User created successfully!' });
+
     } else {
       return NextResponse.json({ message: 'Error creating user' }, {
         status: 500,
       });
     }
+    return NextResponse.json({ message: 'User created successfully!' });
   } catch (error) {
     console.error('Error creating user:', error);
     return NextResponse.json({ message: 'Internal server error' }, {
