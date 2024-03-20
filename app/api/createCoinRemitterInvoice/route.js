@@ -15,8 +15,8 @@ export async function POST(req, res ) {
            method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-              api_key:"$2y$10$DIVAbCj6mLpY2TviOPVD2eovRxguIXc3V1fVndSo5gN46afKMDxni",
-              password: "devDigital",
+              api_key:"$2y$10$ATon6Tb/wl.vngU3MdtSDOzJaflI87LQ2O0gg5I7KHDvngIWEs6Ai",
+              password: "GemRemitter",
                amount: "1",
             //    success_url:`http://localhost:3000/api/paymentsuccess`
               // currency: "EUR",
