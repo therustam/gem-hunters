@@ -12,11 +12,11 @@ export async function POST(req) {
         'x-api-key': "S14GM4E-BT549YD-P3FXCWH-2FSC0AX",
       },
       body: JSON.stringify({
-        price_amount: 1,
+        price_amount: 999,
         price_currency: "usd",
         order_id,  
         order_description:'Stocks',
-        ipn_callback_url: "https://gem-hunters-puce.vercel.app/api/nowpaymentswebhook",
+        ipn_callback_url: "https://1b41-203-128-16-119.ngrok-free.app/api/nowpaymentswebhook",
         success_url: "https://nowpayments.io",
         cancel_url: "https://nowpayments.io",
         partially_paid_url: "https://nowpayments.io",

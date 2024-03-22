@@ -90,7 +90,7 @@ function SignupForm() {
         loading: true,
       });
 
-      const invoiceResponse = await fetch(`/api/createPayment`, {
+      const invoiceResponse = await fetch(`/api/createCoinRemitterInvoice`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,7 +98,7 @@ function SignupForm() {
       });
 
       const data = await invoiceResponse.json();
-      if (data.order_id) {
+      if (data.data.merchant_id) {
         setLoading(false);
         // Step 2: Save orderId in user's record (adjust according to your API/backend setup)
         notifications.update({
@@ -115,12 +115,12 @@ function SignupForm() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ ...values, order_id: data.order_id }),
+          body: JSON.stringify({ ...values, order_id: data.data.merchant_id }),
         });
         const userData = await response.json();
         if (userData.message) {
           // Step 3: Redirect user to payment page
-          router.push(data.invoice_url);
+          router.push(`${data.data.url}`)
         }
       }
     }
