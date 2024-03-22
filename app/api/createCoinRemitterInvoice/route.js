@@ -18,8 +18,7 @@ export async function POST(req, res ) {
               api_key:"$2y$10$ATon6Tb/wl.vngU3MdtSDOzJaflI87LQ2O0gg5I7KHDvngIWEs6Ai",
               password: "GemRemitter",
                amount: "1",
-            //    success_url:`http://localhost:3000/api/paymentsuccess`
-              // currency: "EUR",
+               success_url:`https://lightlabs.io`
                
          }),
         });
