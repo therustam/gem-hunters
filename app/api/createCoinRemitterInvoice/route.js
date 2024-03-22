@@ -22,7 +22,7 @@ export async function POST(req, res ) {
           body: JSON.stringify({
               api_key:apiKey,
               password: apiPassword,
-               amount: "0.01",
+               amount: "0.0054",
                success_url:`https://lightlabs.io`
                
          }),
