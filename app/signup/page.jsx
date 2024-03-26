@@ -235,7 +235,7 @@ function SignupForm() {
               justify={isBigResolution ? "start" : "center"}
               className={classes.flex}
             >
-              <Text ff={'heading'} c={"#D5EDFF"} fz={36} fw={900}>
+              <Text ff={'heading'} c={"#D5EDFF"} fz={36} >
             JOIN GEM HUNTERS NOW
             </Text>
               <Text c={"#D5EDFF"} fz={16}>
