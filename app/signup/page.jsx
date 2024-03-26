@@ -235,15 +235,14 @@ function SignupForm() {
               justify={isBigResolution ? "start" : "center"}
               className={classes.flex}
             >
-              <Text c={"#D5EDFF"} fz={36} fw={900}>
-                Join Gem Hunters Now
-              </Text>
+              <Text ff={'heading'} c={"#D5EDFF"} fz={36} fw={900}>
+            JOIN GEM HUNTERS NOW
+            </Text>
               <Text c={"#D5EDFF"} fz={16}>
-                Trusted by industry leaders since 2017
+              Trusted by industry leaders since 2017
               </Text>
               <form onSubmit={form.onSubmit(handleSubmit)}>
                 <TextInput
-                  ff={"heading"}
                   classNames={{ input: classes.textInput }}
                   variant="unstyled"
                   placeholder="Full Name"
@@ -323,15 +322,14 @@ function SignupForm() {
                 />
               </Box>
             </Link>
-            <Text c={"#D5EDFF"} fz={30} fw={900}>
-              Join Gem Hunters Now
+            <Text ff={'heading'} c={"#D5EDFF"} fz={30} fw={900}>
+            JOIN GEM HUNTERS NOW
             </Text>
             <Text c={"#D5EDFF"} fz={16}>
               Trusted by industry leaders since 2017
             </Text>
             <form onSubmit={form.onSubmit(handleSubmit)}>
               <TextInput
-                ff={"heading"}
                 classNames={{ input: classes.textInput }}
                 variant="unstyled"
                 placeholder="Full Name"
