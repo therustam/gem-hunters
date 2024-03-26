@@ -4,6 +4,7 @@ import { MantineProvider, ColorSchemeScript } from "@mantine/core";
 import { theme } from "../theme";
 import '@mantine/notifications/styles.css';
 // import '../public/fonts/ClashDisplay-Variable.css';
+import "./global.css";
 import { Notifications } from '@mantine/notifications';
 import localFont from "next/font/local";
 
@@ -44,8 +45,8 @@ export default function RootLayout({ children }: { children: any }) {
       <body className={CashDisplay.className}>
         <MantineProvider theme={
           {
-            fontFamily: `${myFont}`,
-            // headings: { fontFamily: 'ClashDisplay' },
+            fontFamily: `${CashDisplay}`,
+            headings: { fontFamily: 'fatfrank' },
             breakpoints: {
               xs: '30em',
               sm: '48em',
