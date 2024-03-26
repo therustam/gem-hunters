@@ -23,7 +23,7 @@ export async function POST(req, res ) {
               api_key:apiKey,
               password: apiPassword,
                amount: "0.0054",
-               success_url:`https://lightlabs.io`
+               success_url:`https://gemhunters-merged.webflow.io/sucess`
                
          }),
         });
