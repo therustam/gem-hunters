@@ -199,7 +199,7 @@ function SignupForm() {
                           ? 64
                           : 40
                       }
-                      mt={isMobile ? 60 : 66}
+                      mt={isMobile ? 60 : 80}
                       mb={isMobile ? 30 : 0}
                     >
                       SIMPLIFYING THE CRYPTO MARKETS
@@ -228,12 +228,12 @@ function SignupForm() {
             </Flex>
             <Flex
               w={`${isMobile ? "100%" : "50%"}`}
-              pt={isMobile ? 50 : isBigResolution ? 300 : 0}
+              pt={isMobile ? 50 : isBigResolution ? 300 : 167}
               h={isMobile ? "500px" : "100vh"}
               direction={"column"}
               gap={"10px"}
               align={"center"}
-              justify={isBigResolution ? "start" : "center"}
+              // justify={isBigResolution ? "start" : "center"}
               className={classes.flex}
             >
               <Text ff={'heading'} c={"#D5EDFF"} fz={36} >
