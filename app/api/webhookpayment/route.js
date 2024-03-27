@@ -63,7 +63,7 @@ const webhookResponse =JSON.parse(response);
       const lastName = nameParts[1];
 // console.log("i am at send post");
       // sending POST Request to abandon cart
-     sendPostRequest(
+    await  sendPostRequest(
     "https://hook.us1.make.com/k965pa9fucx98txicvw3o9b1dbb272s5",
     {
       first_name: firstName,

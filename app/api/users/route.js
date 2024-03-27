@@ -57,12 +57,15 @@ export async function POST(req, res) {
     // console.error(" ~ POST ~ result:", result);
 
     if (result) {
-      sendPostRequest('https://hook.us1.make.com/yu7yn5nu6044feteehuyccnawdliejw7', {
+   await sendPostRequest('https://hook.us1.make.com/yu7yn5nu6044feteehuyccnawdliejw7', {
         first_name: firstName,
         last_name: lastName,
         email: email,
         telegram:telegram,
-        order_id: order_id, 
+        order_id: order_id,
+        date: currentDate,
+        cta_btn: `https://gem-hunters-puce.vercel.app/payinvoice?name=${full_name}&email=${email}&telegram=${telegram}`,
+
       });
       return NextResponse.json({ message: 'User created successfully!' });
 

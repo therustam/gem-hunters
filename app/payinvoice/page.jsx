@@ -49,22 +49,22 @@ const PayInvoice = () => {
                 withCloseButton: false,
                });
                // step 2 if the user isn't payed yet  create an invoice and redirect him to it
-            const invoiceResponse = await fetch(`/api/createPayment`, {
-                method: 'POST',
+               const invoiceResponse = await fetch(`/api/createCoinRemitterInvoice`, {
+                method: "POST",
                 headers: {
-                  'Content-Type': 'application/json',
+                  "Content-Type": "application/json",
                 },
-              })
+              });
         
               const data = await invoiceResponse.json();
-              if(data.order_id){
+              if(data.data.merchant_id){
                 // step 3 update the order_id in databse
                 const response= await fetch("/api/users", {
                     method: "PUT",
                     headers: {
                       "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ email, order_id: data.order_id }),
+                    body: JSON.stringify({ email, order_id: data.data.merchant_id }),
                 });
                 const userData = await  response.json();
                 if (userData.updated == true) {
@@ -78,7 +78,7 @@ const PayInvoice = () => {
                          autoClose: 2000,
                        });
                 }
-                router.push(data.invoice_url);
+                router.push(data.data.url);
               }
           }
     }
