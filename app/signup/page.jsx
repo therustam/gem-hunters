@@ -109,7 +109,7 @@ function SignupForm() {
           loading: true,
           autoClose: 2000,
         });
-
+      
         const response = await fetch("/api/users", {
           method: "POST",
           headers: {
@@ -177,6 +177,7 @@ function SignupForm() {
                   </Link>
                   <Box mr={{ sm: "0", lg: 80 }}>
                     <Text
+                    ff={'heading'}
                       w={
                         isMobile
                           ? 350
@@ -187,7 +188,7 @@ function SignupForm() {
                           : 491
                       }
                       c={"#D5EDFF"}
-                      fw={900}
+                      // fw={900}
                       mr={isMobile ? 0 : isBigHeightThanLaptop ? -20 : -200}
                       fz={
                         isMobile
@@ -196,7 +197,7 @@ function SignupForm() {
                           ? 40
                           : isBigResolution
                           ? 64
-                          : 43
+                          : 40
                       }
                       mt={isMobile ? 60 : 66}
                       mb={isMobile ? 30 : 0}
@@ -322,7 +323,9 @@ function SignupForm() {
                 />
               </Box>
             </Link>
-            <Text ff={'heading'} c={"#D5EDFF"} fz={30} fw={900}>
+            <Text ff={'heading'} c={"#D5EDFF"} fz={30} 
+            // fw={900}
+            >
             JOIN GEM HUNTERS NOW
             </Text>
             <Text c={"#D5EDFF"} fz={16}>
@@ -376,7 +379,9 @@ function SignupForm() {
           <BackgroundImage src="/images/Pattern.png" h={"auto"} w={"100%"}>
             <Flex pl={20} mt={40} pb={20} direction={"column"} h={"auto"} align={"center"} justify={"center"}>
               <Box mr={{ sm: "0", lg: 80 }}>
-                <Text c={"#D5EDFF"} fz={32} fw={900} w={350}>
+                <Text ff={'heading'} c={"#D5EDFF"} fz={32} 
+                // fw={900}
+                 w={350}>
                   SIMPLIFYING THE CRYPTO MARKETS
                 </Text>
               </Box>
