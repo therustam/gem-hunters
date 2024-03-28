@@ -197,7 +197,7 @@ function SignupForm() {
                           ? 40
                           : isBigResolution
                           ? 64
-                          : 40
+                          : 44
                       }
                       mt={isMobile ? 60 : 80}
                       mb={isMobile ? 30 : 0}
@@ -228,7 +228,7 @@ function SignupForm() {
             </Flex>
             <Flex
               w={`${isMobile ? "100%" : "50%"}`}
-              pt={isMobile ? 50 : isBigResolution ? 300 : 167}
+              pt={isMobile ? 50 : isBigResolution ? 187 : 167}
               h={isMobile ? "500px" : "100vh"}
               direction={"column"}
               gap={"10px"}
